@@ -1,70 +1,178 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Custom Hooks Library
 
-## Available Scripts
+A collection of useful custom hooks to simplify your React development.
 
-In the project directory, you can run:
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Install react-custom-hooks-library with npm
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+  npm install react-custom-hooks-library
+```
+or yarn 
 
-### `npm test`
+```bash
+  yarn add react-custom-hooks-library
+```
+## Hooks
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### useLocalStorage 
 
-### `npm run build`
+Manages a piece of state that is synced with local storage.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Usage:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```javascript
+import { useLocalStorage } from 'react-custom-hooks-library';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+function MyComponent() {
+  const [name, setName, removeName] = useLocalStorage('nameKey', 'defaultName');
+  // ...
+}
+```
 
-### `npm run eject`
+### useToggle 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Simplifies handling toggle states.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Usage:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```javascript
+import { useToggle } from 'react-custom-hooks-library';
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+function ToggleComponent() {
+  const [isOn, toggleIsOn] = useToggle(false);
+  // ...
+}
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### useDebounce 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Delays execution of a function until after a specified wait time.
 
-### Code Splitting
+**Usage:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```javascript
+import { useDebounce } from 'react-custom-hooks-library';
 
-### Analyzing the Bundle Size
+function SearchComponent() {
+  const debouncedValue = useDebounce(value, 500);
+  // ...
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### usePrevious 
 
-### Making a Progressive Web App
+Tracks the previous value of a state or prop.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Usage:**
 
-### Advanced Configuration
+```javascript
+import { usePrevious } from 'react-custom-hooks-library';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+function MyComponent({ value }) {
+  const previousValue = usePrevious(value);
+  // ...
+}
+```
 
-### Deployment
+### useInterval 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Handles recurring tasks using setInterval.
 
-### `npm run build` fails to minify
+**Usage:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```javascript
+import { useInterval } from 'react-custom-hooks-library';
+
+function TimerComponent() {
+  const { start, stop } = useInterval(() => { /* Do something */ }, 1000);
+  // ...
+}
+```
+
+### useMediaQuery 
+
+Responds to CSS media query matches.
+
+**Usage:**
+
+```javascript
+import { useMediaQuery } from 'react-custom-hooks-library';
+
+function ResponsiveComponent() {
+  const screenSize = useMediaQuery('(max-width: 600px)', 'small', 'large');
+  // ...
+}
+```
+
+### useOnlineStatus 
+
+Tracks the online/offline status of the user.
+
+**Usage:**
+
+```javascript
+import { useOnlineStatus } from 'react-custom-hooks-library';
+
+function ConnectivityComponent() {
+  const isOnline = useOnlineStatus();
+  // ...
+}
+```
+
+### useForm 
+
+Simplifies form handling including validation.
+
+**Usage:**
+
+```javascript
+import { useForm } from 'react-custom-hooks-library';
+
+function MyForm() {
+  const { values, errors, handleChange, handleSubmit } = useForm(initialValues, validate);
+  // ...
+}
+```
+
+### useCopyClipboard
+
+Copies text to the clipboard.
+
+**Usage:**
+
+```javascript
+import { useCopyClipboard } from 'react-custom-hooks-library';
+
+function CopyComponent() {
+  const [isCopied, copy] = useCopyClipboard();
+  // ...
+}
+```
+
+### useFetch
+
+Performs network requests and handles the response, loading state, and errors. It's versatile for different HTTP methods (GET, POST, PUT, DELETE).
+
+**Usage:**
+
+```javascript
+import { useFetch } from 'react-custom-hooks-library';
+
+function FetchComponent() {
+  const { data, loading, error } = useFetch(url, method, body, headers);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div>
+      {data && <div>{JSON.stringify(data)}</div>}
+    </div>
+  );
+}
+```
